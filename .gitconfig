@@ -1,0 +1,5 @@
+[user]
+	name = Adrian
+	email = adrian.dryzara3@gmail.com
+[core]
+	editor = code --wait
