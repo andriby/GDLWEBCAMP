@@ -28,6 +28,9 @@
         var camisas = document.getElementById('camisa_evento')
         var etiquetas = document.getElementById('etiquetas')
 
+
+if(document.getElementById('calcular')){
+
     //Calcular
 
     calcular.addEventListener('click', calcularMontos);
@@ -141,6 +144,7 @@
                 }
                     lista_productos.style.display="block";
                     lista_productos.innerHTML = '';
+                    
                     for (var i = 0; i < listadoProductos.length; ++i){
                         lista_productos.innerHTML += listadoProductos[i] + '</br>';
                     }
@@ -155,13 +159,90 @@
              }
         
     }
+}
         
     }); //DOM CONTENT LOADED
 })();
 
+
+//AnimateNumber
+
+(function(d){var r=function(b){return b.split("").reverse().join("")},m={numberStep:function(b,a){var e=Math.floor(b);d(a.elem).text(e)}},g=function(b){var a=b.elem;a.nodeType&&a.parentNode&&(a=a._animateNumberSetter,a||(a=m.numberStep),a(b.now,b))};d.Tween&&d.Tween.propHooks?d.Tween.propHooks.number={set:g}:d.fx.step.number=g;d.animateNumber={numberStepFactories:{append:function(b){return function(a,e){var f=Math.floor(a);d(e.elem).prop("number",a).text(f+b)}},separator:function(b,a,e){b=b||" ";
+a=a||3;e=e||"";return function(f,k){var u=0>f,c=Math.floor((u?-1:1)*f).toString(),n=d(k.elem);if(c.length>a){for(var h=c,l=a,m=h.split("").reverse(),c=[],p,s,q,t=0,g=Math.ceil(h.length/l);t<g;t++){p="";for(q=0;q<l;q++){s=t*l+q;if(s===h.length)break;p+=m[s]}c.push(p)}h=c.length-1;l=r(c[h]);c[h]=r(parseInt(l,10).toString());c=c.join(b);c=r(c)}n.prop("number",f).text((u?"-":"")+c+e)}}}};d.fn.animateNumber=function(){for(var b=arguments[0],a=d.extend({},m,b),e=d(this),f=[a],k=1,g=arguments.length;k<g;k++)f.push(arguments[k]);
+if(b.numberStep){var c=this.each(function(){this._animateNumberSetter=b.numberStep}),n=a.complete;a.complete=function(){c.each(function(){delete this._animateNumberSetter});n&&n.apply(this,arguments)}}return e.animate.apply(e,f)}})(jQuery);
+
+//Fin animate Number
+
 $(function(){
-    alert(funcional);
-    console.log("hola")
+
+    //LETTERING
+
+    $('.nombre-sitio').lettering()
+
+    //Menu fijo
+
+    var windowHeight = $(window).height();
+    var barraAltura = $('.barra').innerHeight();
+
+    $(window).scroll(function(){
+        var scroll = $(window).scrollTop();
+        
+        if(scroll > windowHeight){
+            $('.barra').addClass('fixed');
+            $('body').css({'margin-top': barraAltura+'px'});
+        
+
+        } else{
+            $('.barra').removeClass('fixed');
+            $('body').css({'margin-top': '0px'});
+
+        }
+
+    });
+
+    //Menu Movil
+
+    $('.menu-movil').on('click', function(){
+        $('.navegacion-principal').slideToggle();
+    });
+
+    //Programa de conferencias
+    $('.programa-evento .info-curso:first').show();
+    $('.menu-programa a:first').addClass('activo');
+
+    $('.menu-programa a').on('click', function(){
+
+        $('.menu-programa a').removeClass('activo');
+
+        $(this).addClass('activo');
+
+        var enlace = $(this).attr('href');
+        $('.ocultar').hide();
+        
+        $(enlace).fadeOut(500);
+        $(enlace).fadeIn(1000);
+
+        return false
+    });
+
+    //ANIMACIONES PARA LOS NUMEROS//
+
+    $('.resumen-evento li:nth-child(1) p').animateNumber({ number: 6}, 1200);
+    $('.resumen-evento li:nth-child(2) p').animateNumber({ number: 15}, 1200);
+    $('.resumen-evento li:nth-child(3) p').animateNumber({ number: 3}, 1500);
+    $('.resumen-evento li:nth-child(4) p').animateNumber({ number: 9}, 1500);
+
+
+    //Cuenta Regresiva
+
+    $('.cuenta-regresiva').countdown('2023/12/10 09:00:00', function(event){
+        $('#dias').text(event.strftime('%D'));
+        $('#horas').text(event.strftime('%H'));
+        $('#minutos').text(event.strftime('%M'));
+        $('#segundos').text(event.strftime('%S'));
+    });
+
+
 });
 
 
