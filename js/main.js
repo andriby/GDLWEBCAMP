@@ -158,3 +158,28 @@
         
     }); //DOM CONTENT LOADED
 })();
+
+$(function(){
+    alert(funcional);
+    console.log("hola")
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
